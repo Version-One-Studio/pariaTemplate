@@ -28,6 +28,21 @@ module.exports = {
 				icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
 			},
 		},
+		{
+            resolve: "gatsby-source-shopify",
+            options: {
+                
+                shopName: "latenightwithaj",
+                accessToken: "7cd5a27c19ca3b3276a0fca55ad5fe8d",
+                apiVersion: "2020-01",
+                verbose: true,
+                // Number of records to fetch on each request when building the cache
+                // at startup. If your application encounters timeout errors during
+                // startup, try decreasing this number.
+                paginationSize: 250,
+                includeCollections: ["shop", "content"],
+            },
+        },
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
