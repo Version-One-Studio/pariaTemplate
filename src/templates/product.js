@@ -27,7 +27,7 @@ const ProductPage = ({ data }) => {
                     <Description>We believe hiking to be one of the most fulfilling things one can experience. After exploring Trinidad & Tobago’s 
                         greatest treks, falls and caves, it was a no brainer that we designed and named our exclusive backpack collection in honor of
                          our favorites.</Description>
-                    <Price>$199.99</Price>
+                    <Price>$199.99 </Price>
                 </Content>
             </Grid>
         </Container>
