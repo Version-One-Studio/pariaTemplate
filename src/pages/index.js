@@ -6,6 +6,7 @@ import Product from "../components/product/product.component.js";
 import Collection from "../components/collection/collection.component.js";
 import styled from 'styled-components';
 import CollectionDisplay from "../components/collections/collectionsDisplay.component.js";
+import Footer from "../components/footer/footer.component.js";
 
 const IndexPage = () => (
 	<Layout>
@@ -20,6 +21,8 @@ const IndexPage = () => (
 		</About>
 
 		<CollectionDisplay />
+
+		<Footer />
 	</Layout>
 )
 
