@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby'
 import collection1 from '../../images/collection1.png';
 import collection2 from '../../images/collection2.png';
 import collection3 from '../../images/collection3.png';
@@ -7,17 +8,17 @@ import collection3 from '../../images/collection3.png';
 const collections = [
 	{
 		title: 'The Adventurer Collection',
-		img: collection1
+		src: collection1
 
 	},
 	{
 		title: 'The Nomad Collection',
-		img: collection2
+		src: collection2
 
 	},
 	{
 		title: 'The Trekker Collection',
-		img: collection3
+		src: collection3
 
 	},
 ]
@@ -25,18 +26,41 @@ const collections = [
 const CollectionDisplayItem = ({ collection }) => {
 	return (
 		<Wrapper>
-				<Img src={collection.img}></Img>
+				<Img src={collection.src}></Img>
 				<Button>{collection.title}</Button>
 		</Wrapper>
 	)
 }
 
 const CollectionDisplay = () => {
+
+	const { allShopifyCollection } = useStaticQuery(
+    graphql`
+		query {
+			allShopifyCollection {
+				nodes {
+					title
+					shopifyId
+					image {
+						id
+						src
+					}
+				}
+			}
+		}
+    `
+  )
+
+
+	// allShopifyCollection.nodes.map((node) => {
+	// 	<CollectionDisplayItem collection={collection} key={node.shopifyId}/>
+	// }) 
+
 	return (
 		<Container>
 			{
-				collections.map(( collection ) => (
-					<CollectionDisplayItem collection={collection} />
+				collections.map(( collection, index ) => (
+					<CollectionDisplayItem collection={collection} key={index}/>
 				))
 
 			}

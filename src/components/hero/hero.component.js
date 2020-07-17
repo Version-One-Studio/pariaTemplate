@@ -6,7 +6,6 @@ import {
 	Kicker,
 	Title,
 	Subtitle,
-	ShopNowButton,
 	HeroImg
 } from './hero.styles';
 import heroImg from '../../images/heroimg.png';

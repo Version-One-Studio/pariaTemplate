@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../components/layout/layout.js";
 import SEO from "../components/seo";
 import Hero from "../components/hero/hero.component.js";
-import Product from "../components/product/product.component.js";
 import Collection from "../components/collection/collection.component.js";
 import styled from 'styled-components';
 import CollectionDisplay from "../components/collections/collectionsDisplay.component.js";
@@ -13,6 +12,7 @@ const IndexPage = () => (
 		<SEO title="Home" />
 		<Hero />
 		<Collection />
+		
 		<About>
 			<Title>The Art of Hiking</Title>
 			<Description>

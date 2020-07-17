@@ -35,8 +35,8 @@ const Collection = () => {
 		<Title>Shop the Waterfall Collection</Title>
 		<ProductList>
 			{
-				products.map((product) => (
-					<Product product={product} />
+				products.map((product, index) => (
+					<Product product={product} key={index}/>
 				))
 			}
 		</ProductList>
