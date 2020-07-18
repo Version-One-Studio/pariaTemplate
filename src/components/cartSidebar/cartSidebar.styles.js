@@ -10,7 +10,7 @@ padding: 20px;
 border: 1px solid black;
 background-color: white;
 top: 100px;
-right: 20px;
+right: 50px;
 z-index: 5;
 `;
 
