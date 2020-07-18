@@ -44,9 +44,9 @@ const ProductPage = ({ data }) => {
 
 	const [count, setCount] = useState(1)
 	const [selectedOptions, setSelectedOptions] = useState([])
-	const [selectedVariant, setSelectedVariant] = useState('')
+	const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
 	const [activeImage, setActiveImage] = useState(product.images[0].originalSrc)
-	const [variantPrice, setVariantPrice] = useState(product.priceRange.minVariantPrice.amount)
+	const [variantPrice, setVariantPrice] = useState(product.variants[0].price)
 	
 	const { total } = usePrice(count, variantPrice)
 
@@ -54,15 +54,14 @@ const ProductPage = ({ data }) => {
 		//Check if the user has selected enough options
 		if (selectedOptions.length === product.options.length) {
 			let title = `${selectedOptions.join(" / ")}`
-
+			console.log(title)
+			
 			//Loop through all variants and find a match for the label
 			for (let i = 0; i < product.variants.length; i++) {
-				if (title === product.variants[i].label) {
-					const selectedVariant = product.title[i]
-
-					setSelectedVariant(selectedVariant.shopifyId)
-					setActiveImage(selectedVariant.image.originalSrc)
-					setVariantPrice(selectedVariant.price)
+				if (title === product.variants[i].title) {
+					console.log(product.variants[i])
+					setSelectedVariant(product.variants[i])
+					setVariantPrice(product.variants[i].price)
 				}
 			}
 
@@ -75,9 +74,8 @@ const ProductPage = ({ data }) => {
 	console.log(product);
 
 	const handleAddToCart = () => {
-		console.log("clicked")
 		// TODO: Ensure options are selected before adding to cart
-		dispatch({type: ADD_ITEM_TO_CART, item: product, count})
+		dispatch({type: ADD_ITEM_TO_CART, item: {...selectedVariant, title: product.title}, count})
 	}
 
 	const handleAdd = () => {
@@ -98,13 +96,21 @@ const ProductPage = ({ data }) => {
 		setSelectedOptions([...currentOptions])
 	}
 
+	const disabled = () => {
+		if (product.options[0].name === "Title") {
+			return false
+		}
+
+		return selectedOptions.length !== product.options.length
+	}
+
     return (
 			<React.Fragment>
 					<Header />
 					<Container>
 						<Grid>
 							<ImageContainer>
-									<Image src={activeImage}/>
+									<Image src={selectedVariant.image.originalSrc}/>
 							</ImageContainer>
 							<Content>
 									<Name>The BALANDRA BASIN Backpack</Name>
@@ -127,7 +133,11 @@ const ProductPage = ({ data }) => {
 									<Plus onClick={() => handleAdd()}>+</Plus>
 								</ProductQuantity>
 
-								<PrimaryButton clickHandler={handleAddToCart}  text='Add to Cart' />
+								<PrimaryButton
+									clickHandler={handleAddToCart} 
+									text='Add to Cart'
+									disabled={disabled()}	
+								/>
 							</Content>
 
 						</Grid>

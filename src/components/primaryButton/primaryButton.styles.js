@@ -19,6 +19,12 @@ cursor: pointer;
 font: 600 18px/22px Avenir Next;
 box-shadow: 0 4px 40px rgba(0,0,0,0.25);
 transition: transform 0.3s ease-in-out;
+
+:disabled {
+	background: #bbb;
+	cursor: not-allowed;
+}
+
 :hover {
 	transform: scale(1.04);
 }

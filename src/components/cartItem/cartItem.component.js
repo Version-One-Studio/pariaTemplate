@@ -5,10 +5,10 @@ import styled from 'styled-components';
 const CartItem = ({ product }) => {
 	return (
 		<Container>
-			<Img src={product.images[0].originalSrc} />
+			<Img src={product.image.originalSrc} />
 			<Details>
 			<ProductName>{product.title}</ProductName>
-			<Price>{product.count} x ${product.priceRange.maxVariantPrice.amount}</Price>
+			<Price>{product.count} x ${product.price}</Price>
 			</Details>
 		</Container>
 	)

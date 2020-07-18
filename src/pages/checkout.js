@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CheckoutItem from '../components/checkoutItem/checkoutitem.component';
 import { useGlobalDisptach, useGlobalState } from '../context/GlobalContextProvider';
 import Header from '../components/header/header.component';
+import OrderBreakdown from '../components/orderBreakdown/orderBreakdown.component';
 
 
 const Checkout = () => {
@@ -26,6 +27,7 @@ const Checkout = () => {
 					))
 				}
 			</CheckoutItems>
+			<OrderBreakdown />
 		</Wrapper>
 		</Container>
 	)
@@ -44,13 +46,12 @@ const Title = styled.h1`
 width: 134px;
 height: 41px;
 text-align: left;
-font: Bold 30px/58px Avenir Next;
+font: Bold 30px/58px 'Avenir Next';
 letter-spacing: 0px;
 color: #2C2C2C;
 opacity: 1;
 `;
 
 const CheckoutItems = styled.div`
-grid-column: 2/4;
-margin-top:
+	grid-column: 2/4;
 `;

@@ -6,6 +6,7 @@ Container,
 Items,
 CartEmptyText
 } from './cartSidebar.styles';
+import { navigate } from 'gatsby';
 
 const CartSideBar = ({ cartItems, dispatch }) => {
 	return (
@@ -19,7 +20,7 @@ const CartSideBar = ({ cartItems, dispatch }) => {
 					<CartEmptyText>You cart is empty</CartEmptyText>
 				}
 			</Items>
-			<PrimaryButton text="Checkout" width='100%' />
+			<PrimaryButton clickHandler={() => navigate('/checkout')} text="Checkout" width='100%' />
 		</Container>
 	)
 }
