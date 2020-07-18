@@ -11,11 +11,6 @@ const Variants = ({ variants, addToOptions }) => {
 		return values.map(value => Object.assign({}, {value, label: value}))
 	}
 
-	const onSelectChange = (val, index) => {
-		console.log(val)
-		console.log(index)
-	}
-
 	return (
 		<Container>
 		{variants.map(({ id, name, values }, index) => (

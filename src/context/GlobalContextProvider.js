@@ -1,7 +1,8 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useEffect } from 'react';
 import {
 	ADD_ITEM_TO_CART, 
-	REMOVE_ITEM_FROM_CART 
+	REMOVE_ITEM_FROM_CART,
+	TOGGLE_SIDEBAR_HIDDEN 
 } from './actionTypes';
 
 const GlobalStateContext = React.createContext()
@@ -10,7 +11,8 @@ const GloablDispatchContext = React.createContext()
 const initialState = {
 	shoppingCart: [],
 	products: [],
-	total: 0
+	total: 0,
+	sidebarHidden: true
 }
 
 const handleAddToCart = (state, item, count) => {
@@ -21,15 +23,30 @@ const handleAddToCart = (state, item, count) => {
 	let index = state.shoppingCart.findIndex(el => el.shopifyId === item.shopifyId)
 
 	//Not found, add it to shoppingCart
-	if (index === -1) {
-		shoppingCart = [...state.shoppingCart, {...item, count: count}]
-	}else {
-        //Update the count or edit the selected option
-        shoppingCart = state.shoppingCart
-        shoppingCart[index] = {...shoppingCart[index], count: count}
-	}
+	if (index === -1) return shoppingCart = [...state.shoppingCart, {...item, count: count}]
+
+	//Update the count or edit the selected option
+	shoppingCart = [...state.shoppingCart]
+	shoppingCart[index] = {...shoppingCart[index], count: count}
 	console.log(shoppingCart)
 	return shoppingCart
+}
+
+const handleRemoveFromCart = (cartItems, itemToRemove) => {
+
+	const existingCartItem = cartItems.find(
+		cartItem => cartItem.shopifyId === itemToRemove.shopifyId
+	);
+
+	// If the item to remove is at count 1, filter it out from the array
+	if(existingCartItem.count === 1) return cartItems.filter(cartItem => cartItem.shopifyId !== itemToRemove.shopifyId)
+
+	// Map over the items and decrease the item to Remove count by 1
+	return cartItems.map( cartItem => (
+		cartItem.shopifyId === itemToRemove.shopifyId 
+		? { ...cartItem, count: cartItem.count - 1 }
+		: cartItem
+	))
 }
 
 
@@ -46,6 +63,13 @@ const cartReducer = (state, action) => {
 				cartItems: [...state.cartItems].splice([...state.cartItems].indexOf(action.payload), 1)
 			}
 		}	
+
+		case TOGGLE_SIDEBAR_HIDDEN: {
+			return {
+				...state,
+				sidebarHidden: !state.sidebarHidden
+			}
+		}
 	
 		default:
 			return {...state};
@@ -54,7 +78,13 @@ const cartReducer = (state, action) => {
 
 const GlobalContextProvider = ({ children }) => {
 
-	const[state, dispatch] = useReducer(cartReducer, initialState);
+	const localState = JSON.parse(window && window.localStorage.getItem("state"));
+
+	const[state, dispatch] = useReducer(cartReducer, localState || initialState);
+
+	useEffect(() => {
+    window && window.localStorage.setItem("state", JSON.stringify(state));
+	}, [state]);
 
 	return (
 		<GlobalStateContext.Provider value={state}>

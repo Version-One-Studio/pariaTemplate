@@ -21,8 +21,6 @@ const IndexPage = () => (
 		</About>
 
 		<CollectionDisplay />
-
-		<Footer />
 	</Layout>
 )
 
