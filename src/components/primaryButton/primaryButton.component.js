@@ -4,7 +4,7 @@ import {
 	Button
 } from './primaryButton.styles';
 
-const PrimaryButton = ({ text, width, marginTop, marginRight, marginBottom, marginLeft }) => {
+const PrimaryButton = ({ text, width, marginTop, marginRight, marginBottom, marginLeft, clickHandler }) => {
 
 	return (
 		<Container 
@@ -14,7 +14,7 @@ const PrimaryButton = ({ text, width, marginTop, marginRight, marginBottom, marg
 			marginLeft={marginLeft}
 		>
 
-			<Button width={width}>
+			<Button onClick={() => clickHandler()} width={width}>
 				{text}
 			</Button>
 		</Container>

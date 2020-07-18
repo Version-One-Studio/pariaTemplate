@@ -20,6 +20,6 @@ font: 600 18px/22px Avenir Next;
 box-shadow: 0 4px 40px rgba(0,0,0,0.25);
 transition: transform 0.3s ease-in-out;
 :hover {
-	transform: scale(1.1);
+	transform: scale(1.04);
 }
 `;

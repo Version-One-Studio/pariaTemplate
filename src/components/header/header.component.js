@@ -15,6 +15,7 @@ import {
 } from './header.styles';
 
 const Header = ({ siteTitle }) => (
+
 	<Container>
 		<HeaderWrapper>
 			<Logo>

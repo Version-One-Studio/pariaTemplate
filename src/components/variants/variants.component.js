@@ -5,21 +5,30 @@ Container,
 VariantSelect
 } from './variants.styles';
 
-const Variants = ({ variants }) => {
+const Variants = ({ variants, addToOptions }) => {
 
 	const mapValues = (values) => {
-
 		return values.map(value => Object.assign({}, {value, label: value}))
+	}
+
+	const onSelectChange = (val, index) => {
+		console.log(val)
+		console.log(index)
 	}
 
 	return (
 		<Container>
-		{variants.map(({ id, name, values }) => (
-				<VariantSelect key={id}>
-
-					<Select placeholder={`Select ${name}`} options={mapValues(values)} />
-				
-				</VariantSelect>
+		{variants.map(({ id, name, values }, index) => (
+			<VariantSelect key={index}>
+				<Select
+					placeholder={`Select ${name}`}
+					options={mapValues(values)}
+					onChange={val =>
+						addToOptions(val, index)
+					}
+				/>
+			
+			</VariantSelect>
 		))}
 
 		</Container>
