@@ -1,18 +1,19 @@
 import React from 'react'
 
 
-const WipayPayment = ({amount, phone, email, name, orderId, returnUrl, paymentFormRef}) => {
+const WipayPayment = React.forwardRef((props, ref) => {
 
-
+	const { amount, phone, email, name, orderId, returnUrl } = props;
     // const ACTION_URL = process.env.NODE_ENV === "development" ? 'https://sandbox.wipayfinancial.com/v1/gateway' : 'https://wipayfinancial.com/v1/gateway_live'
 
     return (
         <form
             style={{ marginBottom: 0 }}
             action="https://sandbox.wipayfinancial.com/v1/gateway"
-            method="post"
+						method="post"
+						id='wipayform'
             // ref={(ref) => { paymentFormRef = ref; }}
-            ref={paymentFormRef}
+            ref={ref}
         >
             <input
                 name="total"
@@ -37,6 +38,6 @@ const WipayPayment = ({amount, phone, email, name, orderId, returnUrl, paymentFo
             <input name="developer_id" type="hidden" value="1" />
         </form>
     )
-}
+})
 
 export default WipayPayment

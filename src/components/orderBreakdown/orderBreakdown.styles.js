@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     max-width: 550px;
-    grid-column: 2/4;
+    grid-column: ${({showIntermittentLoader}) => showIntermittentLoader ? '1/4' : '2/4'};
+		position: ${({showIntermittentLoader}) => showIntermittentLoader ? 'absolute' : 'relative'};
+		height: 100%;
     @media (max-width: 750px) {
         width: 100%;
         margin: 0;
@@ -29,9 +31,9 @@ export const Label = styled.p`
 `;
 
 export const WipayLoaderContainer = styled.div`
-position: absolute;
+/* position: absolute;
 grid-column: 1/4;
-justify-self: center;
+justify-self: center; */
 width: 100vw;
 height: 100%;
 background-color: rgba(255, 255, 255, 0.8);

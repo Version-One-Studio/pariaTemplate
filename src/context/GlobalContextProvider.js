@@ -3,7 +3,8 @@ import {
 	ADD_ITEM_TO_CART, 
 	REMOVE_ITEM_FROM_CART,
 	TOGGLE_SIDEBAR_HIDDEN, 
-	CLEAR_CART
+	CLEAR_CART,
+	CREATE_LINE_ITEMS_FROM_CART
 } from './actionTypes';
 
 const GlobalStateContext = React.createContext()
@@ -11,7 +12,7 @@ const GloablDispatchContext = React.createContext()
 
 const initialState = {
 	shoppingCart: [],
-	products: [],
+	lineItems: [],
 	total: 0,
 	sidebarHidden: true
 }
@@ -44,6 +45,19 @@ const handleClearCart = () => {
 	return []
 }
 
+const handleCreateLineItems = (shoppingCart) => {
+	return shoppingCart.map(item => {
+		const lineitem = {
+			variant_id: item.shopifyId,
+			quantity: item.count,
+			title: item.title,
+			price: item.price
+		}
+
+		return lineitem
+	})
+}
+
 
 const cartReducer = (state, action) => {
 	switch (action.type) {
@@ -63,6 +77,13 @@ const cartReducer = (state, action) => {
 			return {
 				...state,
 				shoppingCart: handleClearCart()
+			}
+		}
+
+		case CREATE_LINE_ITEMS_FROM_CART: {
+			return {
+				...state,
+				lineItems: handleCreateLineItems(state.shoppingCart)
 			}
 		}
 

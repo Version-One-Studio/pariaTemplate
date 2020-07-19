@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import {
 	Container,
 	OrderTotalBreakdown,
@@ -7,23 +7,33 @@ import {
 	WipayLoaderContainer
 } from './orderBreakdown.styles';
 import { useTotal } from '../../custom-hooks/usePrice';
-import { useGlobalState } from '../../context/GlobalContextProvider';
+import { useGlobalState, useGlobalDisptach } from '../../context/GlobalContextProvider';
 import PrimaryButton from '../primaryButton/primaryButton.component';
 import WipayPayment from '../wipay/wipayPayment.component';
 import WiPayLoader from '../wipay/wipayLoader.component';
+import { CREATE_LINE_ITEMS_FROM_CART } from '../../context/actionTypes';
+import { createDraftOrder } from '../../serverless/orders.serverless';
 
 const OrderBreakdown = () => {
 
-    const state = useGlobalState();
+		const state = useGlobalState();
+		
+		const dispatch = useGlobalDisptach();
+
     const { shoppingCart } = state;
     
-		const paymentForm = useRef(null)
+		const paymentFormRef = useRef(null)
 		
     const loadingCard = useRef(null)
 
     const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
 
 		const { orderSubtotal, orderTotal } = useTotal(shoppingCart, 20)
+
+		useEffect(() => {
+			dispatch({type: CREATE_LINE_ITEMS_FROM_CART});
+			console.log("Dispatched create line items")
+		}, [])
 		
 		const disabled = () => {
 
@@ -31,11 +41,20 @@ const OrderBreakdown = () => {
 
 		}
 
-    const goToWipay = () => {
+    const goToWipay = async () => {
     
 			setShowIntermittentLoader(true)
+			console.log('line items')
+			console.log(state.lineItems);
+
+			await createDraftOrder({
+				name: 'Jonathan.agarrat@gmail.com',
+				first_name: 'Jonathan',
+				last_name: 'Agarrat'
+			}, state.lineItems);
 			
-			paymentForm.current.submit()
+			paymentFormRef.current.submit();
+			
         
         // loadingCard.current.scrollIntoView({
         //     behavior: "smooth",
@@ -44,39 +63,49 @@ const OrderBreakdown = () => {
         
     }
 
-    if (showIntermittentLoader) {
-        return (
-					<WipayLoaderContainer>
-						<WiPayLoader refProp={loadingCard} />
-					</WipayLoaderContainer>
-				)
-		}
-	
+    // if (showIntermittentLoader) {
+
+    //     return (
+		// 			<WipayLoaderContainer>
+		// 				<WiPayLoader refProp={loadingCard} />
+		// 			</WipayLoaderContainer>
+		// 		)
+		// }
 
     return (
-        <Container>
-            <OrderTotalBreakdown>
-                <Row>
-                    <Label>Item Total</Label>
-                    <Label>${orderSubtotal}</Label>    
-                </Row>
-                <Row last>
-                    <Label>Delivery</Label>
-                    <Label>$20.00</Label>    
-                </Row>
-                <Row>
-                    <Label total>Total</Label>
-                    <Label total>${orderTotal}</Label>    
-                </Row>
-            </OrderTotalBreakdown>
+        <Container showIntermittentLoader={showIntermittentLoader}>
+					{
+						showIntermittentLoader ? 
 
-            <PrimaryButton
-                clickHandler={() => goToWipay()}
-								text="Checkout"
-								disabled={disabled()}
-            />
+						<WipayLoaderContainer>
+						<	WiPayLoader refProp={loadingCard} />
+						</WipayLoaderContainer>
+					:
+						<>
+							<OrderTotalBreakdown>
+									<Row>
+											<Label>Item Total</Label>
+											<Label>${orderSubtotal}</Label>    
+									</Row>
+									<Row last>
+											<Label>Delivery</Label>
+											<Label>$20.00</Label>    
+									</Row>
+									<Row>
+											<Label total>Total</Label>
+											<Label total>${orderTotal}</Label>    
+									</Row>
+							</OrderTotalBreakdown>
+
+							<PrimaryButton
+									clickHandler={() => goToWipay()}
+									text="Checkout"
+									disabled={disabled()}
+							/>
+							</>
+					}
             <WipayPayment 
-                paymentFormRef={paymentForm}
+                ref={paymentFormRef}
                 amount={orderTotal}
                 email="andelhusbands@gmail.com"
                 name="Andel Husbands"
@@ -85,6 +114,7 @@ const OrderBreakdown = () => {
                 returnUrl="http://localhost:8000/checkoutComplete"
 
             />
+
         </Container>
     )
 }

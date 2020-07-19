@@ -5,21 +5,19 @@ import Hero from "../components/hero/hero.component.js";
 import Collection from "../components/collection/collection.component.js";
 import styled from 'styled-components';
 import CollectionDisplay from "../components/collections/collectionsDisplay.component.js";
-import Footer from "../components/footer/footer.component.js";
 
 const IndexPage = () => (
 	<Layout>
 		<SEO title="Home" />
 		<Hero />
 		<Collection />
-		
+		{console.log(process.env.TEST_KEY)}
 		<About>
 			<Title>The Art of Hiking</Title>
 			<Description>
 			We believe hiking to be one of the most fulfilling things one can experience. After exploring Trinidad & Tobago’s greatest treks, falls and caves, it was a no brainer that we designed and named our exclusive backpack collection in honor of our favorites.
 			</Description>
 		</About>
-
 		<CollectionDisplay />
 	</Layout>
 )

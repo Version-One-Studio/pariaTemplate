@@ -8,17 +8,11 @@ import {
     Image,
     Name,
     Description,
-		Price,
-		ProductQuantity,
-		Minus,
-		Count,
-		Plus
+		Price
 } from './product.styles';
-import backpackIcon from '../images/backpack2.png'
 import Variants from '../components/variants/variants.component';
 import PrimaryButton from '../components/primaryButton/primaryButton.component';
 import Header from '../components/header/header.component';
-import Footer from '../components/footer/footer.component';
 import { useGlobalDisptach } from '../context/GlobalContextProvider'
 import { ADD_ITEM_TO_CART } from '../context/actionTypes';
 import { usePrice } from '../custom-hooks/usePrice';
