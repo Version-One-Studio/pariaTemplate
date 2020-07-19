@@ -37,7 +37,7 @@ const Header = ({ siteTitle }) => {
 					</CartIcon>
 				</Menu>
 			</HeaderWrapper>
-			{ state.sidebarHidden ? null : <CartSideBar cartItems={state.shoppingCart} /> }
+			{ state.sidebarHidden ? null : <CartSideBar cartItems={state.shoppingCart} dispatch={dispatch} /> }
 		</Container>
 	)
 }

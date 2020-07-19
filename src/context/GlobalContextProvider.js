@@ -2,7 +2,8 @@ import React, { useReducer, useContext, useEffect } from 'react';
 import {
 	ADD_ITEM_TO_CART, 
 	REMOVE_ITEM_FROM_CART,
-	TOGGLE_SIDEBAR_HIDDEN 
+	TOGGLE_SIDEBAR_HIDDEN, 
+	CLEAR_CART
 } from './actionTypes';
 
 const GlobalStateContext = React.createContext()
@@ -15,7 +16,7 @@ const initialState = {
 	sidebarHidden: true
 }
 
-const handleAddToCart = (state, item, count) => {
+const handleUpdateCart = (state, item, count) => {
 	//Check if already in cart, increase count
 	//If not, add to cart
 	let shoppingCart = []
@@ -34,19 +35,13 @@ const handleAddToCart = (state, item, count) => {
 
 const handleRemoveFromCart = (cartItems, itemToRemove) => {
 
-	const existingCartItem = cartItems.find(
-		cartItem => cartItem.shopifyId === itemToRemove.shopifyId
-	);
+	return cartItems.filter(cartItem => cartItem.shopifyId !== itemToRemove.shopifyId)
+}
 
-	// If the item to remove is at count 1, filter it out from the array
-	if(existingCartItem.count === 1) return cartItems.filter(cartItem => cartItem.shopifyId !== itemToRemove.shopifyId)
+const handleClearCart = () => {
 
-	// Map over the items and decrease the item to Remove count by 1
-	return cartItems.map( cartItem => (
-		cartItem.shopifyId === itemToRemove.shopifyId 
-		? { ...cartItem, count: cartItem.count - 1 }
-		: cartItem
-	))
+	window && window.localStorage.removeItem('state');
+	return []
 }
 
 
@@ -54,15 +49,22 @@ const cartReducer = (state, action) => {
 	switch (action.type) {
 
 		case ADD_ITEM_TO_CART: {
-			return {...state, shoppingCart: handleAddToCart(state, action.item, action.count)}
+			return {...state, shoppingCart: handleUpdateCart(state, action.item, action.count)}
 		}
 
 		case REMOVE_ITEM_FROM_CART: {
 			return {
 				...state,
-				cartItems: [...state.cartItems].splice([...state.cartItems].indexOf(action.payload), 1)
+				shoppingCart: handleRemoveFromCart(state.shoppingCart, action.item)
 			}
 		}	
+
+		case CLEAR_CART: {
+			return {
+				...state,
+				shoppingCart: handleClearCart()
+			}
+		}
 
 		case TOGGLE_SIDEBAR_HIDDEN: {
 			return {

@@ -7,12 +7,22 @@ Items,
 CartEmptyText
 } from './cartSidebar.styles';
 import { navigate } from 'gatsby';
+import { TOGGLE_SIDEBAR_HIDDEN } from '../../context/actionTypes';
 
 const CartSideBar = ({ cartItems, dispatch }) => {
+
+	const handleGoToCheckout = () => {
+
+		dispatch({type: TOGGLE_SIDEBAR_HIDDEN});
+
+		navigate('/checkout')
+	}
+
+
 	return (
 		<Container>
 			<Items>
-				{cartItems ? 
+				{cartItems.length > 0 ? 
 					cartItems.map(cartItem => (
 						<CartItem key={cartItem.shopifyId} product={cartItem} />
 					))
@@ -20,7 +30,7 @@ const CartSideBar = ({ cartItems, dispatch }) => {
 					<CartEmptyText>You cart is empty</CartEmptyText>
 				}
 			</Items>
-			<PrimaryButton clickHandler={() => navigate('/checkout')} text="Checkout" width='100%' />
+			<PrimaryButton clickHandler={() => handleGoToCheckout()} text="Go to Checkout" width='100%' />
 		</Container>
 	)
 }

@@ -22,6 +22,7 @@ import Footer from '../components/footer/footer.component';
 import { useGlobalDisptach } from '../context/GlobalContextProvider'
 import { ADD_ITEM_TO_CART } from '../context/actionTypes';
 import { usePrice } from '../custom-hooks/usePrice';
+import ProductCounter from '../components/productCounter/proudctCounter.component';
 
 const testProduct = {
 	options: [
@@ -75,7 +76,7 @@ const ProductPage = ({ data }) => {
 
 	const handleAddToCart = () => {
 		// TODO: Ensure options are selected before adding to cart
-		dispatch({type: ADD_ITEM_TO_CART, item: {...selectedVariant, title: product.title}, count})
+		dispatch({type: ADD_ITEM_TO_CART, item: {...selectedVariant, style: selectedVariant.title, title: product.title}, count})
 	}
 
 	const handleAdd = () => {
@@ -127,11 +128,13 @@ const ProductPage = ({ data }) => {
 								/>
 								}
 
-								<ProductQuantity>
+								{/* <ProductQuantity>
 									<Minus onClick={() => handleMinus()}>–</Minus>
 									<Count>{count}</Count>
 									<Plus onClick={() => handleAdd()}>+</Plus>
-								</ProductQuantity>
+								</ProductQuantity> */}
+
+								<ProductCounter handleMinus={handleMinus} handleAdd={handleAdd} count={count} />
 
 								<PrimaryButton
 									clickHandler={handleAddToCart} 

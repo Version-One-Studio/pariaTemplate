@@ -1,5 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import {
+	Container,
+	Img,
+	Details,
+	ProductName,
+	Price,
+} from './cartItem.styles';
 
 
 const CartItem = ({ product }) => {
@@ -17,22 +23,3 @@ const CartItem = ({ product }) => {
 export default CartItem;
 
 
-const Container = styled.div`
-display: grid;
-grid-template-columns: 35% 1fr;
-grid-column-gap: 8px;
-align-items: center;
-margin-top: 8px;
-height: 100px;
-`;
-
-const Img = styled.img` 
-width: 100%;
-object-fit: cover;
-`;
-
-const Details = styled.div``;
-
-const ProductName = styled.h4``;
-
-const Price = styled.p``;

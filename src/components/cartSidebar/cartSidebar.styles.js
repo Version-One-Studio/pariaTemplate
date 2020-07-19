@@ -21,4 +21,13 @@ flex-direction: column;
 overflow: scroll;
 `;
 
-export const CartEmptyText = styled.p``;
+export const CartEmptyText = styled.p`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+font: 600 20px/37px 'Avenir Next';
+letter-spacing: 0px;
+color: #2C2C2C;
+opacity: 0.79;
+`;

@@ -4,6 +4,7 @@ import CheckoutItem from '../components/checkoutItem/checkoutitem.component';
 import { useGlobalDisptach, useGlobalState } from '../context/GlobalContextProvider';
 import Header from '../components/header/header.component';
 import OrderBreakdown from '../components/orderBreakdown/orderBreakdown.component';
+import Footer from '../components/footer/footer.component';
 
 
 const Checkout = () => {
@@ -13,6 +14,7 @@ const Checkout = () => {
 
 	const { shoppingCart } = state;
 
+	console.log(shoppingCart);
 	console.log(state.shoppingCart)
 	return(
 		<Container>
@@ -20,26 +22,41 @@ const Checkout = () => {
 		<Wrapper>
 			<div></div>
 			<Title>Your Cart</Title>
-			<CheckoutItems>
-				{
-					shoppingCart.map((item) => (
-						<CheckoutItem />
-					))
-				}
-			</CheckoutItems>
+			{
+				shoppingCart.length > 0 ?
+				<>
+					<CheckoutItems>
+						{
+							shoppingCart.map((item) => (
+								<CheckoutItem product={item} key={item.shopifyId} />
+							))
+						}
+					</CheckoutItems>
+				</>
+				:
+				<CartEmptyText>You cart is empty</CartEmptyText>
+			}
+			
 			<OrderBreakdown />
 		</Wrapper>
+		<Footer />
 		</Container>
 	)
 }
 
 export default Checkout;
 
-const Container = styled.div``;
+const Container = styled.div`
+min-height: 100vh;
+`;
 
 const Wrapper = styled.div`
 display: grid;
 grid-template-columns: 20% 1fr 20%;
+grid-template-rows: 50px 1fr 1fr;
+margin-bottom: 50px;
+height: 100%;
+position: relative;
 `;
 
 const Title = styled.h1`
@@ -54,4 +71,12 @@ opacity: 1;
 
 const CheckoutItems = styled.div`
 	grid-column: 2/4;
+`;
+
+const CartEmptyText = styled.p`
+grid-column: 2/4;
+margin: 100px 0;
+font-size: 30px;
+font-weight: 500;
+line-height: 1.4%;
 `;
