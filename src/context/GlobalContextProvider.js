@@ -41,7 +41,7 @@ const handleRemoveFromCart = (cartItems, itemToRemove) => {
 
 const handleClearCart = () => {
 
-	window && window.localStorage.removeItem('state');
+	typeof window !== 'undefined' && window.localStorage.removeItem('state');
 	return []
 }
 
@@ -101,12 +101,18 @@ const cartReducer = (state, action) => {
 
 const GlobalContextProvider = ({ children }) => {
 
-	const localState = JSON.parse(window && window.localStorage.getItem("state"));
+	let localState = false
+
+	if(typeof window !== 'undefined') {
+		 
+		localState = JSON.parse(window.localStorage.getItem("state"));
+
+	}
 
 	const[state, dispatch] = useReducer(cartReducer, localState || initialState);
 
 	useEffect(() => {
-    window && window.localStorage.setItem("state", JSON.stringify(state));
+    typeof window !== 'undefined' && window.localStorage.setItem("state", JSON.stringify(state));
 	}, [state]);
 
 	return (
