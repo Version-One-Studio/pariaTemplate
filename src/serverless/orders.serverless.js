@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const serverlessBaseUrl = 'http://localhost:8888/.netlify/functions'
-const serverlessBaseUrl = 'https://hardcore-clarke-2c8435.netlify.app'
+const serverlessBaseUrl = 'https://hardcore-clarke-2c8435.netlify.app/.netlify/functions'
 
 const DRAFT_ORDERS = 'draftOrders';
 
