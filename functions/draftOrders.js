@@ -1,8 +1,8 @@
-const axios = require('axios');
+// const axios = require('axios');
 
-const DRAFT_ORDERS='draft_orders.json';
+// const DRAFT_ORDERS='draft_orders.json';
 
-const pasUrl = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_PASSWORD}@latenightwithaj.myshopify.com/admin/api/2020-07`
+// const pasUrl = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_PASSWORD}@latenightwithaj.myshopify.com/admin/api/2020-07`
 
 // const shopifyRequest = axios.create({
 // 	baseURL: `https://${process.env.SHOPIFY_NAME}.myshopify.com/admin/api/2020-04`,
