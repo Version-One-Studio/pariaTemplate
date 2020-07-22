@@ -15,62 +15,55 @@ import { CREATE_LINE_ITEMS_FROM_CART } from '../../context/actionTypes';
 import { createDraftOrder } from '../../serverless/orders.serverless';
 
 const OrderBreakdown = () => {
-
-		const state = useGlobalState();
-		
-		const dispatch = useGlobalDisptach();
+	
+	//Context
+	const state = useGlobalState();	
+	const dispatch = useGlobalDisptach();
 
     const { shoppingCart } = state;
-    
-		const paymentFormRef = useRef(null)
-		
+	
+	//Refs
+	const paymentFormRef = useRef(null)
     const loadingCard = useRef(null)
 
+	//State
     const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
+	const [orderId, setOrderId] = useState('')
 
-		const { orderSubtotal, orderTotal } = useTotal(shoppingCart, 20)
+	//Hooks
+	const { orderSubtotal, orderTotal } = useTotal(shoppingCart, 20)
 
-		useEffect(() => {
-			dispatch({type: CREATE_LINE_ITEMS_FROM_CART});
-			console.log("Dispatched create line items")
-		}, [])
+
+	useEffect(() => {
+		dispatch({type: CREATE_LINE_ITEMS_FROM_CART});
+		console.log("Dispatched create line items")
+	}, [])
 		
-		const disabled = () => {
+	const disabled = () => {
 
-			return shoppingCart.length < 1 ? true : false 
+		return shoppingCart.length < 1 ? true : false 
 
-		}
+	}
 
     const goToWipay = async () => {
     
-			setShowIntermittentLoader(true)
-			console.log('line items')
-			console.log(state.lineItems);
+		setShowIntermittentLoader(true)
+		console.log('line items')
+		console.log(state.lineItems);
 
-			await createDraftOrder({
-				name: 'Jonathan.agarrat@gmail.com',
-				first_name: 'Jonathan',
-				last_name: 'Agarrat'
-			}, state.lineItems);
-			
-			paymentFormRef.current.submit();
-			
-        
-        // loadingCard.current.scrollIntoView({
-        //     behavior: "smooth",
-        //     block: "center",
-        // })
+		//Create a draft order and get its ID
+		const draftOrderId = await createDraftOrder({
+			email: 'jonathan.agarrat@gmail.com',
+			phone: '+19172002947',
+			first_name: 'Jonathan',
+			last_name: 'Agarrat'
+		}, state.lineItems);
+
+		//Set the ID and submit the form!
+		setOrderId(draftOrderId)
+		// requestAnimationFrame(() => paymentFormRef.current.submit())
         
     }
-
-    // if (showIntermittentLoader) {
-
-    //     return (
-		// 			<WipayLoaderContainer>
-		// 				<WiPayLoader refProp={loadingCard} />
-		// 			</WipayLoaderContainer>
-		// 		)
-		// }
 
     return (
         <Container showIntermittentLoader={showIntermittentLoader}>
@@ -109,7 +102,7 @@ const OrderBreakdown = () => {
                 amount={orderTotal}
                 email="andelhusbands@gmail.com"
                 name="Andel Husbands"
-                orderId="123"
+                orderId={orderId}
                 phone="8687188625"
                 returnUrl="http://localhost:8000/checkoutComplete"
 

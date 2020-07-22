@@ -13,29 +13,50 @@ const shopifyRequest = axios.create({
 	}
 });
 
-//customer:{} email, first_name, last_name
-//linItems: [{}] variant_id, quantity, title, price
 
 export const createDraftOrder = async (customer, lineItems) => {
-console.log("in create draft order serverless")
 	try {
-
-		const response = shopifyRequest.post(`/${DRAFT_ORDERS}`, {
-												draft_order: {
-													customer: {
-														...customer,
-														created_at: new Date().toISOString()
-													},
-													line_items: [...lineItems]
-												}
-											});
-		console.log(response.data);
+		//Our middleware in gatsby config will write this to local host or prod
+		//when making the call, depending on the environment that it's in
+		const response = await axios.post('/.netlify/functions/draftOrders', 
+			//Send the body, build the draft order request in the serverless function
+			JSON.stringify(
+				{
+					customer: {
+						...customer,
+						accepts_marketing: true,
+						
+						// created_at: new Date().toISOString()
+					},
+					line_items: [...lineItems]
+				}
+			)
+		);
+		console.log(response);
+		//Return the ID to we can send it as the Wipay ID
+		return response.data.id
 	} catch(error) {
-
 		console.log(error)
-
 	}
 	
+}
+
+export const completeDraftOrder = async (draftOrderId) => {
+	try {
+		//Our middleware in gatsby config will write this to local host or prod
+		//when making the call, depending on the environment that it's in
+		const response = axios.post('/.netlify/functions/draftOrders', 
+			//Send the body, build the draft order request in the serverless function
+			JSON.stringify(
+				{
+					orderId: draftOrderId
+				}
+			)
+		);
+		console.log(response);
+	} catch(error) {
+		console.log(error)
+	}
 }
 
 

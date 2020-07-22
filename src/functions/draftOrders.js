@@ -1,56 +1,55 @@
-// const axios = require('axios');
 
-// const DRAFT_ORDERS='draft_orders.json';
+//MUST REQUIRE THIS IN ORDER TO ACCESS PROCESS ENV
+require("dotenv").config()
+const axios = require('axios');
 
-// const pasUrl = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_PASSWORD}@latenightwithaj.myshopify.com/admin/api/2020-07`
+const DRAFT_ORDERS ='draft_orders.json';
+const statusCode = 200
 
-// const shopifyRequest = axios.create({
-// 	baseURL: `https://${process.env.SHOPIFY_NAME}.myshopify.com/admin/api/2020-04`,
-// 	timeout: 6000,
-// 	headers: {
-// 		'X-Shopify-Access-Token': process.env.SHOPIFY_ACCESS_TOKEN,
-// 	}
-// });
-
-//customer:{} email, first_name, last_name
-//linItems: [{}] variant_id, quantity, title, price
-
-// const createDraftOrder = async (customer, lineItems) => {
-// console.log("in create draft order serverless")
-
-// 	try {
-
-// 		const response = shopifyRequest.post(`/${DRAFT_ORDERS}`, {
-// 												draft_order: {
-// 													customer: {
-// 														...customer,
-// 														created_at: new Date().toISOString()
-// 													},
-// 													line_items: [...lineItems]
-// 												}
-// 											});
-// 		console.log(response.data);
-// 	} catch(error) {
-
-// 		console.log(error)
-
-// 	}
-	
-// }
-
-exports.handler = function(event, context, callback) {
-
-	// const data = JSON.stringify(event.body);
-
-	// console.log(data);
-
-	callback(null, {
-		statusCode: 200,
-		headers: {
-			"Access-Control-Allow-Origin": "*",
-			"Access-Control-Allow-Headers": "Content-Type"
+//Create axios instance
+const shopifyInstance = axios.create({
+    baseURL: `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_PASSWORD}@${process.env.SHOPIFY_NAME}.myshopify.com/admin/api/2020-04/`,
+    headers: {
+        "X-Shopify-Access-Token": process.env.SHOPIFY_PASSWORD,
+        "Access-Control-Allow-Origin": "*",
     },
-    body: "Hello, World"
-		});
+})
+
+exports.handler = async function(event) {
+
+    // Parse the body contents into an object.
+	const data = JSON.parse(event.body)
+    const {
+		customer,
+		line_items
+	} = data
+	
+    try {
+        const response = await shopifyInstance.post(DRAFT_ORDERS, {
+            draft_order: {
+				email: customer.email,
+                phone: customer.phone,
+                customer: {
+                    ...customer
+                },
+                line_items,
+            },
+		})
 		
+        return {
+            statusCode,
+            success: true,
+            data: "Success",
+            body: JSON.stringify({...response.data.draft_order}),
+        }
+    } catch (err) {
+        console.log(err.message)
+        return {
+            statusCode,
+            headers,
+            success: false,
+            body: err.message,
+        }
+    }
+
 }
