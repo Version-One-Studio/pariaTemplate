@@ -6,6 +6,7 @@ import {
 	CLEAR_CART,
 	CREATE_LINE_ITEMS_FROM_CART
 } from './actionTypes';
+import { convertShopifyId } from '../utils/utils';
 
 const GlobalStateContext = React.createContext()
 const GloablDispatchContext = React.createContext()
@@ -48,7 +49,7 @@ const handleClearCart = () => {
 const handleCreateLineItems = (shoppingCart) => {
 	return shoppingCart.map(item => {
 		const lineitem = {
-			variant_id: item.shopifyId,
+			variant_id: convertShopifyId(item.shopifyId),
 			quantity: item.count,
 			title: item.title,
 			price: item.price
