@@ -24,10 +24,10 @@ const OrderBreakdown = () => {
 	
 	//Refs
 	const paymentFormRef = useRef(null)
-    const loadingCard = useRef(null)
+  const loadingCard = useRef(null)
 
 	//State
-    const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
+  const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
 	const [orderId, setOrderId] = useState('')
 
 	//Hooks

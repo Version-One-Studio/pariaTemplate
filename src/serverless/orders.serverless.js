@@ -15,18 +15,18 @@ const shopifyRequest = axios.create({
 
 
 export const createDraftOrder = async (customer, lineItems) => {
+
 	try {
 		//Our middleware in gatsby config will write this to local host or prod
 		//when making the call, depending on the environment that it's in
-		const response = await axios.post('/.netlify/functions/draftOrders', 
-			//Send the body, build the draft order request in the serverless function
+		const response = await shopifyRequest.post(`${serverlessBaseUrl}/${DRAFT_ORDERS}`, 
+
+		//Send the body, build the draft order request in the serverless function
 			JSON.stringify(
 				{
 					customer: {
 						...customer,
 						accepts_marketing: true,
-						
-						// created_at: new Date().toISOString()
 					},
 					line_items: [...lineItems]
 				}
