@@ -1,9 +1,10 @@
 import axios from 'axios'
 
-// const serverlessBaseUrl = 'http://localhost:8888/.netlify/functions'
-const serverlessBaseUrl = 'https://hardcore-clarke-2c8435.netlify.app/.netlify/functions'
+const serverlessBaseUrl = 'http://localhost:8888/.netlify/functions'
+//const serverlessBaseUrl = 'http://70a4ad5c73d4.ngrok.io/.netlify/functions'
 
 const DRAFT_ORDERS = 'draftOrders';
+const TEST_ORDERS = 'testOrders'
 
 const shopifyRequest = axios.create({
 	baseURL: `${serverlessBaseUrl}`,
@@ -19,7 +20,7 @@ export const createDraftOrder = async (customer, lineItems) => {
 	try {
 		//Our middleware in gatsby config will write this to local host or prod
 		//when making the call, depending on the environment that it's in
-		const response = await shopifyRequest.post(`${serverlessBaseUrl}/${DRAFT_ORDERS}`, 
+		const response = await shopifyRequest.post(`${serverlessBaseUrl}/${TEST_ORDERS}`, 
 
 		//Send the body, build the draft order request in the serverless function
 			JSON.stringify(
