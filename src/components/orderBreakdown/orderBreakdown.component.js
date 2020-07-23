@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 import {
 	Container,
 	OrderTotalBreakdown,
@@ -20,7 +20,7 @@ const OrderBreakdown = () => {
 	const state = useGlobalState();	
 	const dispatch = useGlobalDisptach();
 
-    const { shoppingCart } = state;
+  const { shoppingCart } = state;
 	
 	//Refs
 	const paymentFormRef = useRef(null)
@@ -28,7 +28,7 @@ const OrderBreakdown = () => {
 
 	//State
   const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
-	const [orderId, setOrderId] = useState('')
+	const [orderId, setOrderId] = useState('-1')
 
 	//Hooks
 	const { orderSubtotal, orderTotal } = useTotal(shoppingCart, 20)
@@ -60,8 +60,9 @@ const OrderBreakdown = () => {
 		}, state.lineItems);
 
 		//Set the ID and submit the form!
+		console.log(draftOrderId);
 		setOrderId(draftOrderId)
-		// requestAnimationFrame(() => paymentFormRef.current.submit())
+		requestAnimationFrame(() => paymentFormRef.current.submit())
         
     }
 
@@ -97,17 +98,20 @@ const OrderBreakdown = () => {
 							/>
 							</>
 					}
-            <WipayPayment 
-                ref={paymentFormRef}
-                amount={orderTotal}
-                email="andelhusbands@gmail.com"
-                name="Andel Husbands"
-                orderId={orderId}
-                phone="8687188625"
-                returnUrl="http://localhost:8000/checkoutComplete"
-
-            />
-
+						{
+							orderId !== '-1' ? 
+							<WipayPayment 
+									ref={paymentFormRef}
+									amount={orderTotal}
+									email="andelhusbands@gmail.com"
+									name="Andel Husbands"
+									orderId={orderId}
+									phone="8687188625"
+									returnUrl="http://localhost:8000/checkoutComplete"
+							/>
+							:
+							null
+						}
         </Container>
     )
 }

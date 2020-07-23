@@ -5,14 +5,13 @@ const WipayPayment = React.forwardRef((props, ref) => {
 
 	const { amount, phone, email, name, orderId, returnUrl } = props;
     // const ACTION_URL = process.env.NODE_ENV === "development" ? 'https://sandbox.wipayfinancial.com/v1/gateway' : 'https://wipayfinancial.com/v1/gateway_live'
-
+		
     return (
         <form
             style={{ marginBottom: 0 }}
             action="https://sandbox.wipayfinancial.com/v1/gateway"
 						method="post"
 						id='wipayform'
-            // ref={(ref) => { paymentFormRef = ref; }}
             ref={ref}
         >
             <input
@@ -32,8 +31,6 @@ const WipayPayment = React.forwardRef((props, ref) => {
                 name="return_url"
                 type="hidden"
                 value={returnUrl}
-                // value={`http://localhost:8000/payment-success`}
-                // value={`https://upbeat-goldberg-8db28b.netlify.com/shop/order-confirmation/`}
             />
             <input name="developer_id" type="hidden" value="1" />
         </form>

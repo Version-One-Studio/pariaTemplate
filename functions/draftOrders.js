@@ -30,8 +30,6 @@ const submitDraftOrder = async (customer, line_items) => {
 				line_items,
 			},
 		})
-
-		console.log(response);
 	
 		return { ...response, success: true };
 

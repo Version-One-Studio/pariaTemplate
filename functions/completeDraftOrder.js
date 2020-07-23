@@ -17,13 +17,17 @@ const shopifyInstance = axios.create({
 
 exports.handler = async function(event) {
 
+		console.log('in complete order handler');
     // Parse the body contents into an object.
-    const data = JSON.parse(event.body)
+		const data = JSON.parse(event.body)
+
+		console.log("DATA Printed")
+		console.log(data);
+
     const {
-        orderId
+				orderId
     } = data
     
-
     try {
         const response = await shopifyInstance.put(
             `draft_orders/${orderId}/complete.json`
@@ -33,7 +37,7 @@ exports.handler = async function(event) {
             statusCode,
             success: true,
             data: "Success",
-            body: JSON.stringify({...response.data.draft_order,}),
+            body: JSON.stringify({ ...response.data.draft_order })
         }
     } catch (err) {
         return {

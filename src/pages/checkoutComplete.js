@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as queryString from 'query-string';
 import PrimaryButton from '../components/primaryButton/primaryButton.component';
@@ -6,22 +6,37 @@ import { navigate } from 'gatsby';
 import Header from '../components/header/header.component';
 import { useGlobalDisptach } from '../context/GlobalContextProvider';
 import { CLEAR_CART } from '../context/actionTypes';
+import { completeDraftOrder } from '../serverless/orders.serverless';
 
 
 const CheckoutComplete = ({ location }) => {
 
 	console.log(location)
-	const {status, name, total} = queryString.parse(location.search)
+	const {status, name, total, order_id} = queryString.parse(location.search)
 	const dispatch = useGlobalDisptach();
+	const [orderComplete, setOrderComplete] = useState(false);
+	const [updatingOrder, setUpdatingOrder] = useState(true);
 
 	useEffect(() => {
+
 		dispatch({type: CLEAR_CART})
-	}, [])
+
+		const updateOrder = async (order_id) => {
+			await completeDraftOrder(order_id);
+			setUpdatingOrder(false);
+			setOrderComplete(true);
+		}
+
+		updateOrder(order_id);
+		
+	}, [dispatch])
 
 	return (
 		<Container>
 			<Header />
 			<Main>
+				{orderComplete && !updatingOrder 
+				?
 				<Wrapper>
 					<Title>Thank You {name}!</Title>
 					<Message>
@@ -46,6 +61,12 @@ const CheckoutComplete = ({ location }) => {
 					<PrimaryButton text='Return Home' clickHandler={() => navigate('/')} />
 
 				</Wrapper>
+				:
+				updatingOrder && !orderComplete ?
+				<h1>Completeing Order</h1>
+				:
+				<h1>Order update failed</h1>
+				}
 				</Main>
 				
 		</Container>

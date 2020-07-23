@@ -8,6 +8,7 @@
     "atob": "^2.1.2",
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
+    "express": "^4.17.1",
     "framer-motion": "^2.1.0",
     "gatsby": "^2.23.12",
     "gatsby-image": "^2.4.9",
@@ -26,6 +27,7 @@
     "react-helmet": "^6.1.0",
     "react-loader-spinner": "^3.1.14",
     "react-select": "^3.1.0",
+    "serverless-http": "^2.5.0",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
@@ -40,7 +42,7 @@
   ],
   "license": "0BSD",
   "scripts": {
-		"start": "npm run develop",
+    "start": "npm run develop",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "build": "gatsby build",
