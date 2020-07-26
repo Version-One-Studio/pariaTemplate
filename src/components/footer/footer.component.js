@@ -16,7 +16,7 @@ import wipayIcon from '../../images/wipay-icon.png';
 const Footer = () => {
 	return (
 			<Container>
-				<MailingList>
+				{/* <MailingList>
 					<InputField 
 						type='text'
 						placeholder="Email Address"
@@ -25,7 +25,7 @@ const Footer = () => {
 						type='submit'
 					/>
 				</MailingList>
-				<Text>Be the first to know about our newest collections and discounts</Text>
+				<Text>Be the first to know about our newest collections and discounts</Text> */}
 
 				<Policies>
 					<Policy>Privacy Policy</Policy>

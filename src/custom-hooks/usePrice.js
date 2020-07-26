@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const usePrice = (quantity, variantPrice) => {
 
     const total = (quantity * parseFloat(variantPrice)).toFixed(2)
@@ -24,4 +22,15 @@ export const useTotal = (cart, deliveryCost) => {
 
     return { orderSubtotal: parseFloat(orderTotal - deliveryCost).toFixed(2), orderTotal }
     
+}
+
+export const useCartItemCount = (cart) => {
+
+	if(!cart.length){
+		return 0
+	}
+
+	const reducer = (accumulator, currentValue) => accumulator + currentValue.count;
+	return cart.reduce(reducer, 0);
+
 }

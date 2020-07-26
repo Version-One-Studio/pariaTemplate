@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 width: 100%;
-height: 505px;
+min-height: 505px;
 display: grid;
-grid-template-columns: 50% 50%;
+grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 max-width: 1200px;
 margin-left: auto;
 margin-right: auto;
@@ -13,10 +13,16 @@ export const Left = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
+min-height: 400px;
 height: 100%;
 padding-left: 40px;
 padding-right: 40px;
 background-color: #EDEDED;
+
+@media only screen and (max-width: 800px) {
+  order: 2;
+}
+
 `;
 
 export const Kicker = styled.p`

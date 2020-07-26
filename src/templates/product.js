@@ -18,21 +18,6 @@ import { ADD_ITEM_TO_CART } from '../context/actionTypes';
 import { usePrice } from '../custom-hooks/usePrice';
 import ProductCounter from '../components/productCounter/proudctCounter.component';
 
-const testProduct = {
-	options: [
-		{
-			id: '1',
-			name:'Size',
-			values: ["9", "9.5", "10"]
-		},
-		{
-			id: '2',
-			name:'Color',
-			values: ["red", "white"]
-		}
-	]
-}
-
 const ProductPage = ({ data }) => {
 
 	let product = data.product;
@@ -121,12 +106,6 @@ const ProductPage = ({ data }) => {
 									addToOptions={handleAddToOptions}
 								/>
 								}
-
-								{/* <ProductQuantity>
-									<Minus onClick={() => handleMinus()}>–</Minus>
-									<Count>{count}</Count>
-									<Plus onClick={() => handleAdd()}>+</Plus>
-								</ProductQuantity> */}
 
 								<ProductCounter handleMinus={handleMinus} handleAdd={handleAdd} count={count} />
 

@@ -12,6 +12,7 @@ const PrimaryButton = ({ disabled, text, width, marginTop, marginRight, marginBo
 			marginRight={marginRight}
 			marginBottom={marginBottom}
 			marginLeft={marginLeft}
+			width={width}
 		>
 
 			<Button disabled={disabled} onClick={() => clickHandler()} width={width}>

@@ -1,17 +1,19 @@
 import styled from 'styled-components';
+import * as colors from '../../theme/colors';
 
 export const Container = styled.div`
+width: ${({ width }) => width? width : '287px'};;
 margin-top: ${({marginTop}) => marginTop? marginTop : '0'};
 margin-right: ${({marginRight}) => marginRight? marginRight : '0'};
 margin-bottom: ${({marginBottom}) => marginBottom? marginBottom : '0'};
 margin-left: ${({marginLeft}) => marginLeft? marginLeft : '0'};
-display: inline-block;
+display: block;
 `;
 
 export const Button = styled.button`
 width: ${({ width }) => width? width : '287px'};
 height: 65px;
-background: #000000 0% 0% no-repeat padding-box;
+background: ${colors.primaryColor} 0% 0% no-repeat padding-box;
 opacity: 1;
 color: #fff;
 border: none;
