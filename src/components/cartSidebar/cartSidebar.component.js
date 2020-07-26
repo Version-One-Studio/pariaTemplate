@@ -15,7 +15,7 @@ const CartSideBar = ({ cartItems, dispatch }) => {
 
 		dispatch({type: TOGGLE_SIDEBAR_HIDDEN});
 
-		navigate('/checkout')
+		navigate('/cart')
 	}
 
 

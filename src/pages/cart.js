@@ -7,7 +7,7 @@ import OrderBreakdown from '../components/orderBreakdown/orderBreakdown.componen
 import Footer from '../components/footer/footer.component';
 
 
-const Checkout = () => {
+const Cart = () => {
 
 	const state = useGlobalState();
 	const dispatch = useGlobalDisptach();
@@ -20,7 +20,6 @@ const Checkout = () => {
 		<Container>
 		<Header />
 		<Wrapper>
-			<div></div>
 			<Title>Your Cart</Title>
 			{
 				shoppingCart.length > 0 ?
@@ -44,7 +43,7 @@ const Checkout = () => {
 	)
 }
 
-export default Checkout;
+export default Cart;
 
 const Container = styled.div`
 min-height: 100vh;
@@ -52,11 +51,15 @@ min-height: 100vh;
 
 const Wrapper = styled.div`
 display: grid;
-grid-template-columns: 20% 1fr 20%;
+grid-template-columns: 20% 1fr 1fr;
 grid-template-rows: 50px 1fr 1fr;
 margin-bottom: 50px;
 height: 100%;
 position: relative;
+
+@media only screen and (max-width: 1200px) {
+	grid-template-columns: 1fr;
+}
 `;
 
 const Title = styled.h1`
@@ -67,10 +70,20 @@ font: Bold 30px/58px 'Avenir Next';
 letter-spacing: 0px;
 color: #2C2C2C;
 opacity: 1;
+grid-column: 2/4;
+
+@media only screen and (max-width: 1200px) {
+		grid-column: 1;
+		width: 100%;
+		padding-left: 20px;
+}
 `;
 
 const CheckoutItems = styled.div`
 	grid-column: 2/4;
+	@media only screen and (max-width: 1200px) {
+		grid-column: 1;
+}
 `;
 
 const CartEmptyText = styled.p`

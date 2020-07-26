@@ -1,14 +1,19 @@
 import styled from 'styled-components';
+import * as screen from '../../theme/screenSizes';
 
 export const Container = styled.section`
     max-width: 550px;
     grid-column: ${({showIntermittentLoader}) => showIntermittentLoader ? '1/4' : '2/4'};
 		position: ${({showIntermittentLoader}) => showIntermittentLoader ? 'absolute' : 'relative'};
 		height: 100%;
-    @media (max-width: 750px) {
-        width: 100%;
-        margin: 0;
-    }
+		
+
+		@media only screen and (max-width: ${screen.smallScreen}) {
+			width: 300px;
+			grid-column: 1;
+			margin: 0;
+			justify-self: center;
+		}
 `;
 
 export const OrderTotalBreakdown = styled.div`

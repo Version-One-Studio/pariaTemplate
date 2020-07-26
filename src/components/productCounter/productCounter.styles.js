@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import { marginSmall, marginMedium } from '../../theme/margins';
+import { marginSmall } from '../../theme/margins';
 
 export const Container = styled.div`
 width: 165px;
@@ -15,7 +15,6 @@ margin-bottom: 20px;
 @media only screen and (max-width: 800px) {
 		width: 100%;
 		margin-top: ${marginSmall};
-		margin-bottom: ${marginMedium};
 	}
 `;
 

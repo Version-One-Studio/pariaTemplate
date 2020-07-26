@@ -13,6 +13,7 @@ import WipayPayment from '../wipay/wipayPayment.component';
 import WiPayLoader from '../wipay/wipayLoader.component';
 import { CREATE_LINE_ITEMS_FROM_CART } from '../../context/actionTypes';
 import { createDraftOrder } from '../../serverless/orders.serverless';
+import * as margins from '../../theme/margins';
 
 const OrderBreakdown = () => {
 	
@@ -95,6 +96,8 @@ const OrderBreakdown = () => {
 									clickHandler={() => goToWipay()}
 									text="Checkout"
 									disabled={disabled()}
+									marginTop={margins.marginMedium}
+								
 							/>
 							</>
 					}

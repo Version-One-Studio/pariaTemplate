@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { marginMedium } from '../theme/margins';
+import * as screen from '../theme/screenSizes';
 
 export const Container = styled.section`
     padding: 10vh 40px;
@@ -49,6 +50,11 @@ letter-spacing: 0px;
 opacity: 1;
 height: 229px;
 top: 20px;
+
+@media only screen and (max-width: ${screen.smallScreen}) {
+		height: auto;
+	}
+
 `
 export const Price = styled.h5`
 text-align: left;
