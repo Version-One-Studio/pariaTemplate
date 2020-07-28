@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { largeScreen } from '../../theme/screenSizes';
 
 export const Container = styled.div`
 width: 100%;
 min-height: 505px;
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-max-width: 1200px;
+max-width: ${largeScreen};
 margin-left: auto;
 margin-right: auto;
 `;

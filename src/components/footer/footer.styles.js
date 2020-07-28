@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { largeScreen } from '../../theme/screenSizes';
 
 export const Container = styled.div`
-max-width: 1200px;
+max-width: ${largeScreen};
 width: 100%;
 height: 458px;
 background: #313739 0% 0% no-repeat padding-box;
