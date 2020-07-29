@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import PrimaryButton from '../primaryButton/primaryButton.component';
+import { largeScreen } from '../../theme/screenSizes';
 
 export const Container = styled.div`
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-max-width: 1200px;
+max-width: ${largeScreen};
 margin-left: auto;
 margin-right: auto;
 `;

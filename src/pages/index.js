@@ -5,6 +5,7 @@ import Hero from "../components/hero/hero.component.js";
 import FeaturedCollection from "../components/featuredCollection/featuredCollection.component";
 import styled from 'styled-components';
 import Collections from "../components/collections/collections.component.js";
+import { largeScreen } from "../theme/screenSizes.js";
 
 const IndexPage = () => (
 	<Layout>
@@ -29,7 +30,7 @@ min-height: 300px;
 background-color: #F5F5F5;
 text-align: center;
 padding: 40px;
-max-width: 1200px;
+max-width: ${largeScreen};
 margin-left: auto;
 margin-right: auto;
 `;

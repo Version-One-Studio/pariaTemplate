@@ -1,18 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { navigate } from 'gatsby';
 import {
 	Container,
 	OrderTotalBreakdown,
 	Row,
-	Label,
-	WipayLoaderContainer
+	Label
 } from './orderBreakdown.styles';
 import { useTotal } from '../../custom-hooks/usePrice';
 import { useGlobalState, useGlobalDisptach } from '../../context/GlobalContextProvider';
 import PrimaryButton from '../primaryButton/primaryButton.component';
-import WipayPayment from '../wipay/wipayPayment.component';
-import WiPayLoader from '../wipay/wipayLoader.component';
 import { CREATE_LINE_ITEMS_FROM_CART } from '../../context/actionTypes';
-import { createDraftOrder } from '../../serverless/orders.serverless';
 import * as margins from '../../theme/margins';
 
 const OrderBreakdown = () => {
@@ -22,14 +19,6 @@ const OrderBreakdown = () => {
 	const dispatch = useGlobalDisptach();
 
   const { shoppingCart } = state;
-	
-	//Refs
-	const paymentFormRef = useRef(null)
-  const loadingCard = useRef(null)
-
-	//State
-  const [showIntermittentLoader, setShowIntermittentLoader] = useState(false)
-	const [orderId, setOrderId] = useState('-1')
 
 	//Hooks
 	const { orderSubtotal, orderTotal } = useTotal(shoppingCart, 20)
@@ -38,7 +27,7 @@ const OrderBreakdown = () => {
 	useEffect(() => {
 		dispatch({type: CREATE_LINE_ITEMS_FROM_CART});
 		console.log("Dispatched create line items")
-	}, [])
+	}, [shoppingCart])
 		
 	const disabled = () => {
 
@@ -46,37 +35,8 @@ const OrderBreakdown = () => {
 
 	}
 
-    const goToWipay = async () => {
-    
-		setShowIntermittentLoader(true)
-		console.log('line items')
-		console.log(state.lineItems);
-
-		//Create a draft order and get its ID
-		const draftOrderId = await createDraftOrder({
-			email: 'jonathan.agarrat@gmail.com',
-			phone: '+19172002947',
-			first_name: 'Jonathan',
-			last_name: 'Agarrat'
-		}, state.lineItems);
-
-		//Set the ID and submit the form!
-		console.log(draftOrderId);
-		setOrderId(draftOrderId)
-		requestAnimationFrame(() => paymentFormRef.current.submit())
-        
-    }
-
     return (
-        <Container showIntermittentLoader={showIntermittentLoader}>
-					{
-						showIntermittentLoader ? 
-
-						<WipayLoaderContainer>
-						<	WiPayLoader refProp={loadingCard} />
-						</WipayLoaderContainer>
-					:
-						<>
+        <Container>
 							<OrderTotalBreakdown>
 									<Row>
 											<Label>Item Total</Label>
@@ -93,28 +53,12 @@ const OrderBreakdown = () => {
 							</OrderTotalBreakdown>
 
 							<PrimaryButton
-									clickHandler={() => goToWipay()}
+									clickHandler={() => navigate('/checkout-customer-details')}
 									text="Checkout"
 									disabled={disabled()}
 									marginTop={margins.marginMedium}
 								
 							/>
-							</>
-					}
-						{
-							orderId !== '-1' ? 
-							<WipayPayment 
-									ref={paymentFormRef}
-									amount={orderTotal}
-									email="andelhusbands@gmail.com"
-									name="Andel Husbands"
-									orderId={orderId}
-									phone="8687188625"
-									returnUrl="http://localhost:8000/checkoutComplete"
-							/>
-							:
-							null
-						}
         </Container>
     )
 }

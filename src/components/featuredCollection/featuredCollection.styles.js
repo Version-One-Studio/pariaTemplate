@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import * as margins from '../../theme/margins';
 import * as colors from '../../theme/colors';
+import { largeScreen } from '../../theme/screenSizes';
 
 export const Container = styled.div`
-max-width: 1200px;
+max-width: ${largeScreen};
 margin-left: auto;
 margin-right: auto;
 padding-left: 20px;

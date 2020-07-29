@@ -18,15 +18,17 @@ const shopifyInstance = axios.create({
     },
 })
 
-const submitDraftOrder = async (customer, line_items) => {
+const submitDraftOrder = async (customer, line_items, shipping_address) => {
+	console.log(customer);
 	try {
 		const response = await shopifyInstance.post(DRAFT_ORDERS, {
 			draft_order: {
 				email: customer.email,
-				phone: customer.phone,
+				note: customer.phone,
 				customer: {
 						...customer
 				},
+				shipping_address,
 				line_items,
 			},
 		})
@@ -45,9 +47,9 @@ exports.handler = async function(event) {
   // Parse the body contents into an object.
 	const data = JSON.parse(event.body)
 
-  const { customer, line_items } = data
+  const { customer, line_items, shipping_address } = data
 			 
-	const response = await submitDraftOrder(customer, line_items)
+	const response = await submitDraftOrder(customer, line_items, shipping_address)
 
 	return {
 				statusCode: response.success ? STATUS_CODE.OK : STATUS_CODE.BAD,

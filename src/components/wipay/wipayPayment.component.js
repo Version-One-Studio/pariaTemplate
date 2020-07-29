@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const WipayPayment = React.forwardRef((props, ref) => {
 
 	const { amount, phone, email, name, orderId, returnUrl } = props;
@@ -11,7 +10,6 @@ const WipayPayment = React.forwardRef((props, ref) => {
             style={{ marginBottom: 0 }}
             action="https://sandbox.wipayfinancial.com/v1/gateway"
 						method="post"
-						id='wipayform'
             ref={ref}
         >
             <input
