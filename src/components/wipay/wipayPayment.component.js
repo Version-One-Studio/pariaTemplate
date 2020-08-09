@@ -3,11 +3,11 @@ import React from 'react'
 const WipayPayment = React.forwardRef((props, ref) => {
 
 	const { amount, phone, email, name, orderId, returnUrl } = props;
-    // const ACTION_URL = process.env.NODE_ENV === "development" ? 'https://sandbox.wipayfinancial.com/v1/gateway' : 'https://wipayfinancial.com/v1/gateway_live'
-		
     return (
         <form
-            style={{ marginBottom: 0 }}
+            style={
+							{ marginBottom: 0 }
+						}
             action="https://sandbox.wipayfinancial.com/v1/gateway"
 						method="post"
             ref={ref}

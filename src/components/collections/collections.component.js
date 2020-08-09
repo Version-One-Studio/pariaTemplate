@@ -20,14 +20,16 @@ const collectionsOld = [
 
 	},
 	{
-		node: {title: 'The Nomad Collection',
-		image: {src: collection2}}
+		node: {
+			title: 'The Nomad Collection',
+			image: { src: collection2 }
+		}
 
 	},
 	{
 	node: {	title: 'The Trekker Collection',
-		image: {src: collection3}}
-
+		image: { src: collection3 }
+	}
 	},
 ]
 

@@ -13,7 +13,11 @@ import { navigate } from 'gatsby';
 
 const Product = ({ product }) => {
 	const [firstImage] = product.images;
-	const {priceRange: { minVariantPrice: { amount } }} = product;
+	const { 
+		priceRange: { 
+			minVariantPrice: { amount } 
+			}
+	} = product;
 	return (
 		<Container>
 			<ProductImage>

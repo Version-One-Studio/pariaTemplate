@@ -15,17 +15,22 @@ import { marginMedium } from '../../theme/margins';
 const productsOld = [
 	{
 		title: "The Argyle Falls Backpack",
-		priceRange: {minVariantPrice: {amount: "250.00"}},
+		priceRange: {minVariantPrice: {
+			amount: "250.00"}
+		},
 		images: [ { originalSrc: backpack1 } ]
 	},
 	{
 		title: "The BALANDRA BASIN Backpack",
-		priceRange: {minVariantPrice: {amount: "350.00"}},
+		priceRange: {minVariantPrice: {
+			amount: "350.00"}
+		},
 		images: [ { originalSrc: backpack2 }]
 	},
 	{
 		title: "The PEECHON COVE Backpack",
-		priceRange: {minVariantPrice: {amount: "190.00"}},
+		priceRange: {minVariantPrice: {amount: "190.00"}
+	},
 		images: [ { originalSrc: backpack3 }]
 	},
 

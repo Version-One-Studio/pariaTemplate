@@ -43,9 +43,15 @@ const WiPayLoader = ({ refProp }) => (
     <CardContainer>
         <Card
             ref={refProp}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1.4 }}
+            initial={
+							{ opacity: 0, y: 30, scale: 0.9 }
+						}
+            animate={
+							{ opacity: 1, y: 0, scale: 1 }
+						}
+						transition={
+							{ duration: 1.4 }
+						}
         >
             <Logo src={require("../../images/logo.png")} />
             <LoadCopy>

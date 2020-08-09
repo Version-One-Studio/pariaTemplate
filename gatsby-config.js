@@ -1,8 +1,8 @@
 module.exports = {
 	siteMetadata: {
-		title: `Gatsby Default Starter`,
+		title: `{{shopName}}`,
 		description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-		author: `@gatsbyjs`,
+		author: `@versiononestudio`,
 	},
 	plugins: [
 		`gatsby-plugin-react-helmet`,
@@ -32,8 +32,8 @@ module.exports = {
             resolve: "gatsby-source-shopify",
             options: {
                 
-                shopName: "latenightwithaj",
-                accessToken: "7cd5a27c19ca3b3276a0fca55ad5fe8d",
+                shopName: process.env.NODE_ENV === 'development' ? "latenightwithaj" : "{{shopName}}",
+                accessToken: process.env.NODE_ENV === 'development' ? "7cd5a27c19ca3b3276a0fca55ad5fe8d" : "{{storefrontAccessToken}}",
                 apiVersion: "2020-01",
                 verbose: true,
                 // Number of records to fetch on each request when building the cache
