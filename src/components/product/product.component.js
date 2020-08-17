@@ -15,8 +15,8 @@ const Product = ({ product }) => {
 	const [firstImage] = product.images;
 	const { 
 		priceRange: { 
-			minVariantPrice: { amount } 
-			}
+			minVariantPrice: {amount} 	
+}
 	} = product;
 	return (
 		<Container>
@@ -25,11 +25,12 @@ const Product = ({ product }) => {
 			</ProductImage>
 			<Caption>
 				<Title>{product.title}</Title>
-				<Price>${amount}</Price>
+				<Price>${parseFloat(amount).toFixed(2)}</Price>
 			</Caption>
 			<PrimaryButton text="Add to Cart" width="100%" marginTop={marginMedium} clickHandler={() => navigate(`/shop/${product.handle}`)}/>
 		</Container>
 	)
 }
+
 
 export default Product
