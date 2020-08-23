@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql, navigate } from 'gatsby'
 import {
 	Container,
 	Wrapper,
@@ -38,7 +38,7 @@ const CollectionDisplayItem = ({ collection }) => {
 		<Wrapper>
 				<Img src={collection.image.src}></Img>
 				<Button>
-					<PrimaryButton text={collection.title} width='100%' />
+					<PrimaryButton text={collection.title} width='100%' clickHandler={() => navigate(`/shop?handle=${collection.handle}`)}/>
 				</Button>
 		</Wrapper>
 	)
@@ -51,6 +51,7 @@ const Collection = () => {
 		allShopifyCollection(limit: 4) {
 			edges {
 				node {
+					handle
 					title
 					image {
 						src

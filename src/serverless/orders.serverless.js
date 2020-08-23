@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const serverlessBaseUrl = 'http://localhost:8888/.netlify/functions'
-//const serverlessBaseUrl = 'http://70a4ad5c73d4.ngrok.io/.netlify/functions'
+const serverlessBaseUrl = process.env.GATSBY_SERVERLESS_BASE_URL;
 
 const DRAFT_ORDERS = 'draftOrders';
 const COMPLETE_ORDERS = 'completeDraftOrder';
