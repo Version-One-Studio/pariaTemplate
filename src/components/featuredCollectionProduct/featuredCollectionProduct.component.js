@@ -16,7 +16,7 @@ const FeaturedCollectionProduct = ({ product }) => {
 		</ImgContainer>
 		<Caption>
 			<Title>{product.title}</Title>
-			<Price>{product.priceRange.minVariantPrice.amount}</Price>
+			<Price>{parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}</Price>
 		</Caption>
 	</Container>
 	)

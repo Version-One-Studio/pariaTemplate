@@ -95,7 +95,7 @@ const ProductPage = ({ data }) => {
 							<Content>
 									<Name>The BALANDRA BASIN Backpack</Name>
 									<Description>We believe hiking to be one of the most fulfilling things one can experience. After exploring Trinidad & Tobago’s greatest treks, falls and caves, it was a no brainer that we designed and named our exclusive backpack collection in honor of our favorites.</Description>
-									<Price>${total}</Price>
+									<Price>${parseFloat(total).toFixed(2)}</Price>
 
 								{
 								product.options[0].name === 'Title' ?
