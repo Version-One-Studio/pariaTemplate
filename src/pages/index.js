@@ -3,46 +3,18 @@ import Layout from "../components/layout/layout.js";
 import SEO from "../components/seo";
 import Hero from "../components/hero/hero.component.js";
 import FeaturedCollection from "../components/featuredCollection/featuredCollection.component";
-import styled from 'styled-components';
 import Collections from "../components/collections/collections.component.js";
-import { largeScreen } from "../theme/screenSizes.js";
+import About from "../components/about/about.component.js";
+
 
 const IndexPage = () => (
 	<Layout>
 		<SEO title="Home" />
 		<Hero />
 		<FeaturedCollection />
-		<About>
-			<Title>The Art of Hiking</Title>
-			<Description>
-			We believe hiking to be one of the most fulfilling things one can experience. After exploring Trinidad & Tobago’s greatest treks, falls and caves, it was a no brainer that we designed and named our exclusive backpack collection in honor of our favorites.
-			</Description>
-		</About>
+		<About />
 		<Collections />
 	</Layout>
 )
 
-export default IndexPage
-
-const About = styled.div`
-width: 100%;
-min-height: 300px;
-background-color: #F5F5F5;
-text-align: center;
-padding: 40px;
-max-width: ${largeScreen};
-margin-left: auto;
-margin-right: auto;
-`;
-
-const Title = styled.h1`
-font-size: 32px;
-font-weight: bold;
-color: #2C2C2C;
-`;
-
-const Description = styled.p`
-font-size: 26px;
-font-weight: 400;
-color: #2C2C2C;
-`;
+export default IndexPage;
