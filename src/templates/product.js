@@ -93,8 +93,8 @@ const ProductPage = ({ data }) => {
 									<Image src={selectedVariant.image.originalSrc}/>
 							</ImageContainer>
 							<Content>
-									<Name>The BALANDRA BASIN Backpack</Name>
-									<Description>We believe hiking to be one of the most fulfilling things one can experience. After exploring Trinidad & Tobago’s greatest treks, falls and caves, it was a no brainer that we designed and named our exclusive backpack collection in honor of our favorites.</Description>
+									<Name>{product.title}</Name>
+									<Description>{product.description}</Description>
 									<Price>${parseFloat(total).toFixed(2)}</Price>
 
 								{
@@ -139,7 +139,8 @@ export const ProductQuery = graphql`
                     amount
                 }
             }
-            descriptionHtml
+						descriptionHtml
+						description
             availableForSale
             productType
             images {
