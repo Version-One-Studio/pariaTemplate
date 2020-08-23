@@ -2,13 +2,17 @@ import React from 'react'
 
 const WipayPayment = React.forwardRef((props, ref) => {
 
+	const DEVELOPER_ID = process.env.GATSBY_WIPAY_DEVELOPER_ID;
+
+	const WIPAY_URL = process.env.GATSBY_WIPAY_URL;
+
 	const { amount, phone, email, name, orderId, returnUrl } = props;
     return (
         <form
             style={
 							{ marginBottom: 0 }
 						}
-            action="https://sandbox.wipayfinancial.com/v1/gateway"
+            action={WIPAY_URL}
 						method="post"
             ref={ref}
         >
@@ -30,7 +34,7 @@ const WipayPayment = React.forwardRef((props, ref) => {
                 type="hidden"
                 value={returnUrl}
             />
-            <input name="developer_id" type="hidden" value="1" />
+            <input name="developer_id" type="hidden" value={DEVELOPER_ID} />
         </form>
     )
 })
