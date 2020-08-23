@@ -55,11 +55,16 @@ margin-top: 14px;
 
 export const Policies = styled.div`
 margin-top: 40px;
+
+@media only screen and (max-width: 800px) {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		}
 `;
 
 export const Policy = styled.a`
-width: 99px;
-height: 22px;
+min-width: 99px;
+min-height: 22px;
 text-align: center;
 text-decoration: underline;
 font: 600 16px/48px Avenir Next;
@@ -67,7 +72,8 @@ letter-spacing: 0px;
 color: #D3D3D3;
 padding: 2px 10px;
 cursor: pointer;
-margin-left: 10px;
+/* margin-left: 10px; */
+
 
 :first-child{
 	margin-left: 0;
