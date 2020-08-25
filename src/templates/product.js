@@ -77,6 +77,13 @@ const ProductPage = ({ data }) => {
 	}
 
 	const disabled = () => {
+		if (!product.availableForSale) {
+			return true
+		}
+		 if(!selectedVariant.availableForSale) {
+			 return true
+		 }
+		
 		if (product.options[0].name === "Title") {
 			return false
 		}
@@ -94,6 +101,12 @@ const ProductPage = ({ data }) => {
 							</ImageContainer>
 							<Content>
 									<Name>{product.title}</Name>
+									{
+										!product.availableForSale || !selectedVariant.availableForSale?
+										<p>Sold Out</p>
+										:
+										null
+									}
 									<Description>{product.description}</Description>
 									<Price>${parseFloat(total).toFixed(2)}</Price>
 
