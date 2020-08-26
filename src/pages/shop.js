@@ -6,8 +6,11 @@ import Layout from '../components/layout/layout.js';
 import * as colors from '../theme/colors';
 import { marginSmall, marginLarge, marginMedium } from '../theme/margins';
 import { largeScreen, mediumScreen } from '../theme/screenSizes';
+import * as queryString from 'query-string';
 
-const Shop = () => {
+const Shop = ({location}) => {
+
+const parsed = queryString.parse(location.search);
 
 	const { allShopifyCollection: { edges } } = useStaticQuery(graphql`
 	query ShopCollectionsQuery {
@@ -15,6 +18,7 @@ const Shop = () => {
 			edges {
 				node {
 					title
+					handle
 					id
 					products {
 						availableForSale
@@ -37,13 +41,29 @@ const Shop = () => {
 	}
 	`);
 
+	let startingIndex = 0;
+	
+
+	const changeTabFromHandle = () => {
+		let position = 0
+		edges.forEach(({node}, index) => {
+			if (node.handle === parsed.handle){
+				position = index
+			}
+		})
+		return position
+	}
+
+	if (parsed.handle){
+		startingIndex = changeTabFromHandle();
+	}
 	const handleTabSelect = (index) => {
 		console.log(`Tab Selected ${index}`);
 		setSelectedTab(index);
 	}
 
-	const [selectedTab, setSelectedTab] = useState(0);
-
+	const [selectedTab, setSelectedTab] = useState(startingIndex);
+	
 	const { node: { products } } = edges[selectedTab];
 	
 	return (
