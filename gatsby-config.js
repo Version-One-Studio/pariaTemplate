@@ -32,7 +32,7 @@ module.exports = {
             resolve: "gatsby-source-shopify",
             options: {
                 
-                shopName: process.env.GATSBY_TEMPLATE === 'on'? "latenightwithaj": "{{shopName}}" ,
+                shopName: "latenightwithaj" ,
                 accessToken: "7cd5a27c19ca3b3276a0fca55ad5fe8d",
                 apiVersion: "2020-01",
                 verbose: true,
