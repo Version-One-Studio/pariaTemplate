@@ -15,6 +15,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 min-height: 400px;
+max-height: 500px;
 height: 100%;
 padding-left: 40px;
 padding-right: 40px;
@@ -67,6 +68,7 @@ transition: transform 0.3s ease-in-out;
 export const Right = styled.div`
 display: flex;
 height: 100%;
+max-height: 500px;
 `;
 
 export const HeroImg = styled.img`
