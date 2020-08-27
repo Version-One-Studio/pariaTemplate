@@ -32,8 +32,8 @@ module.exports = {
             resolve: "gatsby-source-shopify",
             options: {
                 
-                shopName: "latenightwithaj" ,
-                accessToken: "7cd5a27c19ca3b3276a0fca55ad5fe8d",
+                shopName: "{{shopName}}" ,
+                accessToken: "{{storefrontAccessToken}}",
                 apiVersion: "2020-01",
                 verbose: true,
                 // Number of records to fetch on each request when building the cache
