@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql, navigate } from "gatsby";
 import {
 	Container,
 	Title,
@@ -37,7 +37,7 @@ const productsOld = [
 ]
 
 const FeaturedCollection = () => {
-	const { shopifyCollection: { products } } = useStaticQuery(graphql`
+	const { shopifyCollection, allShopifyCollection } = useStaticQuery(graphql`
 	query FeaturedCollectionProductQuery {
 		shopifyCollection(title: {regex: "/Featured/"}) {
 			title
@@ -60,14 +60,47 @@ const FeaturedCollection = () => {
 				}
 			}
 		}
+		allShopifyCollection(sort: {order: DESC, fields: updatedAt}, limit: 1) {
+			edges {
+				node {
+					description
+					handle
+					id
+					image {
+						src
+					}
+					title
+					products {
+						availableForSale
+						description
+						images {
+							originalSrc
+						}
+						title
+						priceRange {
+							minVariantPrice {
+								amount
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	`);
+
+	let collection = shopifyCollection === null ? allShopifyCollection.edges[0].node : shopifyCollection
+
+	let products = collection.products.length > 0 ? collection.products : productsOld
+
+	let title = collection.title.indexOf('Featured') === -1 ? collection.title : collection.title.slice(8);
+
 	return(
 		<Container>
-		<Title>Shop the Waterfall Collection</Title>
+		<Title>Shop the {title}</Title>
 		<ProductList>
 			{
-				productsOld.slice(0,4).map((product, index) => (
+				products.slice(0,3).map((product, index) => (
 					<FeaturedCollectionProduct product={product} key={index}/>
 				))
 			}
@@ -80,6 +113,8 @@ const FeaturedCollection = () => {
 			marginBottom={marginMedium} 	
 			marginLeft='auto'
 			marginRight='auto'
+			clickHandler={() => navigate(`/shop?handle=${collection.handle}`)}
+
 		/>
 		</Container>
 	)
