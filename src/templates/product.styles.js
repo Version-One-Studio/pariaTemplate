@@ -48,7 +48,7 @@ text-align: left;
 font: 400 21px/37px Avenir Next;
 letter-spacing: 0px;
 opacity: 1;
-height: 229px;
+min-height: 229px;
 top: 20px;
 
 @media only screen and (max-width: ${screen.smallScreen}) {

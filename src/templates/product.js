@@ -18,6 +18,11 @@ import { ADD_ITEM_TO_CART } from '../context/actionTypes';
 import { usePrice } from '../custom-hooks/usePrice';
 import ProductCounter from '../components/productCounter/proudctCounter.component';
 
+
+const testDes = `
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium nunc id viverra congue. Mauris id leo nibh. Integer fringilla gravida volutpat. Fusce nec tincidunt eros. Donec ornare rutrum venenatis. Morbi iaculis neque non ultricies dapibus. Curabitur sit amet porta tellus. Ut nisi urna, viverra ac porttitor eget, condimentum eu diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+`;
+
 const ProductPage = ({ data }) => {
 
 	let product = data.product;

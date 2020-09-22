@@ -14,13 +14,9 @@ import { navigate, useStaticQuery } from 'gatsby';
 
 const Hero = () => {
 
-	const { allShopifyCollection: 
-		{ 
-			edges: [firstNode] 
-		} 
-	} = useStaticQuery(graphql`
+	const { allShopifyCollection, shopifyCollection} = useStaticQuery(graphql`
 	query HeroCollectionsQuery {
-		allShopifyCollection(sort: {order: DESC, fields: updatedAt}) {
+		allShopifyCollection(sort: {order: DESC, fields: updatedAt}, limit: 1) {
 			edges {
 				node {
 					description
@@ -33,12 +29,18 @@ const Hero = () => {
 				}
 			}
 		}
+		shopifyCollection(title: {regex: "/Featured/"}) {
+			handle
+			description
+			image {
+				src
+			}
+			title
+		}
 	}
 	`);
 
-	const collection = firstNode.node;
-
-	console.log(collection);
+	const collection = shopifyCollection === null ? allShopifyCollection.edges[0].node : shopifyCollection
 
 	return (
 		<Container>
@@ -49,7 +51,7 @@ const Hero = () => {
 				<PrimaryButton text='Shop Now' marginTop='22px' width='137px' clickHandler={() => navigate('/shop')}/>
 			 </Left>
 			 <Right>
-				 <HeroImg src={collection.image.src} />
+				 <HeroImg src={collection.image ? collection.image.src : heroImg} />
 			 </Right>
 		</Container>
 	)
