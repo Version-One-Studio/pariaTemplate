@@ -16,6 +16,7 @@ import {
 	CartIcon,
 	CartImg
 } from './header.styles';
+import { Link } from "gatsby";
 
 const Header = ({ siteTitle }) => {
 
@@ -25,9 +26,11 @@ const Header = ({ siteTitle }) => {
 	return(
 		<Container>
 			<HeaderWrapper>
-				<Logo>
-					<LogoImg src={logoIcon} />
-				</Logo>
+				<Link to="/">
+					<Logo>
+						<LogoImg src={logoIcon} />
+					</Logo>
+				</Link>
 				<Menu>
 					<SearchIcon>
 						<SearchImg src={searchImg} />
