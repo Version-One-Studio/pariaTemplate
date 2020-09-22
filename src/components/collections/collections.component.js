@@ -11,7 +11,7 @@ import collection2 from '../../images/collection2.png';
 import collection3 from '../../images/collection3.png';
 import PrimaryButton from '../primaryButton/primaryButton.component';
 
-const collectionsOld = [
+const collectionFakes = [
 	{
 		node: {
 			title: 'The Adventurer Collection',
@@ -46,7 +46,7 @@ const CollectionDisplayItem = ({ collection }) => {
 
 const Collection = () => {
 
-	const { allShopifyCollection: { edges } } = useStaticQuery(graphql`
+	const { allShopifyCollection } = useStaticQuery(graphql`
 	query DisplayCollectionsQuery {
 		allShopifyCollection(limit: 4) {
 			edges {
@@ -63,13 +63,14 @@ const Collection = () => {
 	}
 	`);
 
+  let edges = allShopifyCollection.edges.length > 0 ? allShopifyCollection.edges : collectionFakes
 
 	const collections = edges.filter( ({ node }) => node.title.indexOf('Featured') === -1)
 
 	return (
 		<Container>
 			{
-				collectionsOld.map(( { node }, index ) => (
+				collections.map(( { node }, index ) => (
 					<CollectionDisplayItem collection={node} key={index}/>
 				))
 
